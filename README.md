@@ -8,9 +8,16 @@
 - Vue.js Framework JavaScript untuk reactive data binding
 - Google Fonts (Poppins) Tipografi modern
 
+
+## Tampilan Setiap Section / Fitur
+1. Navbar
+Navigasi tetap (fixed-top) dengan efek blur transparan di bagian atas halaman. Berisi link ke setiap section: Home, About, dan Certificates. Responsif dengan hamburger menu di layar kecil.
 <img width="1824" height="934" alt="image" src="https://github.com/user-attachments/assets/e51e956a-9a6e-4e64-a84f-592c5f419a51" />
 
-
+2. About Me Section
+Terdiri dari dua kartu (glass-card) berdampingan:
+- Kartu kiri: Deskripsi diri dan daftar pengalaman (Experience)
+- Kartu kanan: Daftar skill dengan progress bar animasi yang menunjukkan level kemampuan dalam persen
 <img width="1823" height="937" alt="image" src="https://github.com/user-attachments/assets/93249ed7-0432-4510-92ac-d66f7f44fe22" />
 
 
@@ -19,20 +26,151 @@
 
 ## Penjelasan Code Setiap Section / Fitur
 1. Navbar
+```
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark custom-nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Ghani</a>
+
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#certificates">Certificates</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+```
+
 
 2. Hero Section
 
+```
+<section id="home" class="hero">
+    <h1 class="fw-bold display-4">{{ name }}</h1>
+    <p class="lead">{{ tagline }}</p>
+    <img :src="profileImage" class="hero-img">
+</section>
+```
+
 3. About Me — Experience List
+```
+<li v-for="exp in experiences" :key="exp">{{ exp }}</li>
+```
 
 4. About Me — Skills Progress Bar
+```
+<div v-for="skill in skills" :key="skill.name" class="mb-3">
+    <span>{{ skill.name }}</span>
+    <span>{{ skill.level }}%</span>
+    <div class="progress-bar" :style="{ width: skill.level + '%' }"></div>
+</div>
+```
 
-5. Certificates Section
+6. Certificates Section
+
+```
+<div class="col-md-4" v-for="cert in certificates" :key="cert.title">
+   <div class="card modern-card h-100">
+   <img :src="cert.image" class="card-img-top">
+      <div class="card-body">
+         <h5 class="card-title">{{ cert.title }}</h5>
+         <p class="card-text">{{ cert.description }}</p>
+         </div>
+   </div>
+</div>
+```
 
 6. Vue.js Data
+```
+createApp({
+    data() {
+        return {
+            name: "Ghani Mandala Putra",
+            tagline: "Mahasiswa Sistem Informasi 2024",
+            profileImage: "ghani.jpeg",
+
+            about: "Saya merupakan mahasiswa Sistem Informasi yang memiliki ketertarikan pada UI/UX Design dan pengembangan website modern. Selain itu, saya aktif dalam organisasi dan kepanitiaan yang membantu saya mengembangkan kemampuan komunikasi, kerja tim, dan kepemimpinan.",
+
+            experiences: [
+                "UI/UX Design",
+                "Organisasi",
+                "Kepanitiaan"
+            ],
+
+            skills: [
+                { name: "Teamwork", level: 90 },
+                { name: "Komunikasi", level: 85 },
+                { name: "UI/UX Design", level: 90 },
+                { name: "HTML", level: 80 },
+                { name: "CSS", level: 75 }
+            ],
+
+            certificates: [
+                {
+                    title: "UI/UX Design",
+                    description: "Mengikuti Study club UI/UX Design.",
+                    image: "sertif uiux.jpeg"
+                },
+                {
+                    title: "Organisasi",
+                    description: "Anggota Department Relations and Community Services Inforsa 2025.",
+                    image: "sertif inforsa.jpeg"
+                },
+                {
+                    title: "Kepanitiaan",
+                    description: "Anggota panitia pada event ulang tahun prodi Sistem Informasi (Insevent) 2025.",
+                    image: "sertif insevent.jpeg"
+                }
+            ]
+        }
+    }
+}).mount('#app')
+```
 
 7. style.css — Custom Styling
    - Dark Theme & Color Palette
+```
+body {
+    background: #0F1A16;
+    color: #E8F5E9;
+}
+.section-title { color: #34D399; }
+```
    - Glass Card
+```
+.glass-card {
+    background: #16241E;
+    border-radius: 18px;
+    border: 1px solid rgba(52, 211, 153, 0.15);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    transition: 0.3s ease;
+}
+```
    - Hover Effect
+```
+.modern-card:hover {
+    transform: translateY(-6px);
+    border: 1px solid rgba(52, 211, 153, 0.35);
+}
+```
    - Progress Bar
+```
+.progress-bar {
+    background: linear-gradient(90deg, #10B981, #34D399);
+    border-radius: 50px;
+    transition: 1s ease;
+}
+```
    - Navbar Blur Effect
+```
+.custom-nav {
+    background: rgba(15, 26, 22, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0, 200, 150, 0.2);
+}
+```
