@@ -8,19 +8,27 @@
 - Vue.js Framework JavaScript untuk reactive data binding
 - Google Fonts (Poppins) Tipografi modern
 
+## Tampilan Website
+<img width="1824" height="934" alt="image" src="https://github.com/user-attachments/assets/e51e956a-9a6e-4e64-a84f-592c5f419a51" />
+<img width="1823" height="937" alt="image" src="https://github.com/user-attachments/assets/93249ed7-0432-4510-92ac-d66f7f44fe22" />
+<img width="1827" height="963" alt="image" src="https://github.com/user-attachments/assets/981db177-968c-45ba-8021-d95aa1244efb" />
 
 ## Tampilan Setiap Section / Fitur
 1. Navbar
+
 Navigasi tetap (fixed-top) dengan efek blur transparan di bagian atas halaman. Berisi link ke setiap section: Home, About, dan Certificates. Responsif dengan hamburger menu di layar kecil.
 <img width="1824" height="934" alt="image" src="https://github.com/user-attachments/assets/e51e956a-9a6e-4e64-a84f-592c5f419a51" />
 
 2. About Me Section
+
 Terdiri dari dua kartu (glass-card) berdampingan:
 - Kartu kiri: Deskripsi diri dan daftar pengalaman (Experience)
 - Kartu kanan: Daftar skill dengan progress bar animasi yang menunjukkan level kemampuan dalam persen
 <img width="1823" height="937" alt="image" src="https://github.com/user-attachments/assets/93249ed7-0432-4510-92ac-d66f7f44fe22" />
 
+3. Certificates Section
 
+Menampilkan kartu-kartu sertifikat dalam grid 3 kolom. Setiap kartu berisi gambar sertifikat, judul, dan deskripsi singkat. 
 <img width="1827" height="963" alt="image" src="https://github.com/user-attachments/assets/981db177-968c-45ba-8021-d95aa1244efb" />
 
 
@@ -45,7 +53,7 @@ Terdiri dari dua kartu (glass-card) berdampingan:
         </div>
     </nav>
 ```
-
+Menggunakan class Bootstrap fixed-top agar navbar selalu terlihat saat scroll. Class custom-nav dari style.css menambahkan efek backdrop blur dan border bawah hijau transparan.
 
 2. Hero Section
 
@@ -56,11 +64,14 @@ Terdiri dari dua kartu (glass-card) berdampingan:
     <img :src="profileImage" class="hero-img">
 </section>
 ```
+- {{ name }} dan {{ tagline }} adalah Vue.js text interpolation — nilainya diambil dari data().
+- :src="profileImage" adalah Vue.js v-bind — mengikat atribut src ke variabel data profileImage.
 
 3. About Me — Experience List
 ```
 <li v-for="exp in experiences" :key="exp">{{ exp }}</li>
 ```
+Menggunakan Vue v-for directive untuk me-render daftar pengalaman secara dinamis dari array experiences di data().
 
 4. About Me — Skills Progress Bar
 ```
@@ -70,6 +81,7 @@ Terdiri dari dua kartu (glass-card) berdampingan:
     <div class="progress-bar" :style="{ width: skill.level + '%' }"></div>
 </div>
 ```
+Iterasi array skills menggunakan v-for. Lebar progress bar diatur secara dinamis dengan :style binding berdasarkan nilai skill.level.
 
 6. Certificates Section
 
@@ -84,6 +96,7 @@ Terdiri dari dua kartu (glass-card) berdampingan:
    </div>
 </div>
 ```
+Kartu sertifikat di-render secara dinamis dari array certificates menggunakan v-for. Gambar dimuat via :src binding.
 
 6. Vue.js Data
 ```
@@ -131,6 +144,7 @@ createApp({
     }
 }).mount('#app')
 ```
+Semua konten website dikelola di dalam objek data() Vue.js. Dengan ini, perubahan data cukup dilakukan di satu tempat dan tampilan akan otomatis terupdate (reactive).
 
 7. style.css — Custom Styling
    - Dark Theme & Color Palette
@@ -151,6 +165,8 @@ body {
     transition: 0.3s ease;
 }
 ```
+Menciptakan efek kartu semi-transparan dengan border hijau tipis dan shadow gelap.
+
    - Hover Effect
 ```
 .modern-card:hover {
@@ -158,6 +174,8 @@ body {
     border: 1px solid rgba(52, 211, 153, 0.35);
 }
 ```
+Kartu terangkat ke atas saat di-hover dengan transisi halus 0.3s, dan border menjadi lebih terang.
+
    - Progress Bar
 ```
 .progress-bar {
@@ -166,6 +184,8 @@ body {
     transition: 1s ease;
 }
 ```
+Gradient dari hijau tua ke hijau muda dengan animasi transisi 1 detik saat lebar bar berubah.
+
    - Navbar Blur Effect
 ```
 .custom-nav {
@@ -174,3 +194,4 @@ body {
     border-bottom: 1px solid rgba(0, 200, 150, 0.2);
 }
 ```
+Navbar menggunakan backdrop-filter: blur() untuk efek kaca buram di atas konten halaman.
